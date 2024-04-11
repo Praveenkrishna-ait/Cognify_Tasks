@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic DOM Manipulation and Responsive CSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image:  url(image.jpeg);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #passwordStrength {
+            display: block;
+            margin-top: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="registrationForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <input type="submit" value="Submit">
+        </form>
+        <span id="passwordStrength"></span>
+    </div>
+
+    <ul>
+        <li><a href="#" id="homeLink">Home</a></li>
+        <li><a href="#" id="aboutLink">About</a></li>
+        <li><a href="#" id="contactLink">Contact</a></li>
+    </ul>
+    <div id="content"></div>
+
+    <script>
+        function initializePage() {
+            document.getElementById("registrationForm").addEventListener("submit", validateForm);
+            document.getElementById("password").addEventListener("keyup", checkPasswordStrength);
+
+            document.getElementById("homeLink").addEventListener("click", function (event) {
+                event.preventDefault();
+                navigate("home");
+            });
+            document.getElementById("aboutLink").addEventListener("click", function (event) {
+                event.preventDefault();
+                navigate("about");
+            });
+            document.getElementById("contactLink").addEventListener("click", function (event) {
+                event.preventDefault();
+                navigate("contact");
+            });
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var isValid = true;
+
+            // Basic form validation
+
+            // Password strength check
+            if (password.length < 8 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+                alert("Password must be at least 8 characters and contain both letters and numbers");
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Submit form or perform further actions
+                console.log("Form submitted successfully");
+            }
+        }
+
+        function checkPasswordStrength() {
+            var password = document.getElementById("password").value;
+            var strength = "";
+            if (password.length < 8) {
+                strength = "Weak";
+            } else if (/\d/.test(password) && /[a-zA-Z]/.test(password)) {
+                strength = "Strong";
+            } else {
+                strength = "Moderate";
+            }
+            document.getElementById("passwordStrength").innerText = "Password strength: " + strength;
+        }
+
+        function navigate(page)
+         {
+            
+            var content = document.getElementById("content");
+            switch (page) {
+                case "home":
+                    content.innerHTML = "<h2>Welcome to Home Page</h2><p>Unlock boundless possibilities with our registration form.</p>";
+                    break;
+                case "about":
+                    content.innerHTML = "<h2>About Us</h2><p>Learn more about our service.<br><br>It's the service of entering you to the digital world.</p>";
+                    break;
+                case "contact":
+                    content.innerHTML = "<h2>Contact Us</h2><p>Get in touch with us.<br><br>+9360944598<br><br>Doro@gmail.com</p>";
+                    break;
+                default:
+                    content.innerHTML = "<h2>Page not found</h2>";
+            }
+        }
+
+        window.onload = initializePage;
+    </script>
+</body>
+
+</html>
