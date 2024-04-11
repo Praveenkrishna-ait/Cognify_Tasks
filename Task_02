@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Inline Styles and Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px;">
+    <h2 style="color: #333;">Registration Form</h2>
+    <form id="registrationForm" onsubmit="return validateForm()"
+        style="background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <label for="username" style="display: block; margin-bottom: 10px;">Username:</label>
+        <input type="text" id="username" name="username" required
+            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 3px;">
+        <span id="usernameError" class="error" style="display: block;"></span><br>
+
+        <label for="email" style="display: block; margin-top: 10px; margin-bottom: 10px;">Email:</label>
+        <input type="email" id="email" name="email" required
+            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 3px;">
+        <span id="emailError" class="error" style="display: block;"></span><br>
+
+        <label for="password" style="display: block; margin-top: 10px; margin-bottom: 10px;">Password:</label>
+        <input type="password" id="password" name="password" required
+            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 3px;">
+        <span id="passwordError" class="error" style="display: block;"></span><br>
+
+        <input type="submit" value="Submit"
+            style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 3px; cursor: pointer;">
+    </form>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var isValid = true;
+
+            // Check username
+            if (username.length < 5) {
+                document.getElementById("usernameError").innerText = "Username must be at least 5 characters";
+                isValid = false;
+            } else {
+                document.getElementById("usernameError").innerText = "";
+            }
+
+            // Check email format
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Invalid email format";
+                isValid = false;
+            } else {
+                document.getElementById("emailError").innerText = "";
+            }
+
+            // Check password length
+            if (password.length < 8) {
+                document.getElementById("passwordError").innerText = "Password must be at least 8 characters";
+                isValid = false;
+            } else {
+                document.getElementById("passwordError").innerText = "";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+
+</html>
+
+JSON FILE
+
+{
+  "name": "form-validation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
